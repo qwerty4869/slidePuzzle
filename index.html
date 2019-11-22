@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Slide Puzzle</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="control">
+      <select name="select" id="pickPuzzle" onchange="setPuzzle(this)">
+        <option value="3">8-puzzle</option>
+        <option value="4">15-puzzle</option>
+        <option value="5">24-puzzle</option>
+      </select>
+      <span id="reset">reset</span>
+      <span id="shuffle">shuffle</span>
+    </div>
+    <div id="puzzle"></div>
+    <div id="record"></div>
     <script src="puzzle.js"></script>
-</body>
+  </body>
 </html>

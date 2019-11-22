@@ -1,0 +1,25 @@
+body{
+    background-color:#dff9fb;
+}
+#puzzle{
+    padding: 0;
+    width: 40%;
+    height: 40%;
+    margin: 4% auto;
+    box-sizing:border-box;
+    background-color: #535c68;
+}
+#control{
+    background-color:#6ab04c;
+}
+.record{
+    background-color: #6ab04c;
+}
+.tile{
+    background-color:#0652DD ;
+    color:#ecf0f1 ;
+}
+.blanknaver{
+    color:#3498db;
+}
+s
