@@ -10,7 +10,6 @@ p {
 p a {
   color: #888;
 }
-
 #controls {
   text-align: center;
 }
@@ -58,7 +57,7 @@ p a {
 #puzzle span.empty {
   background: transparent;
 }
-#puzzle span.number.light {
+#puzzle span..lnumberight {
   background: #226666;
 }
 #puzzle span.number.dark {

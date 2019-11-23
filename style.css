@@ -1,25 +1,33 @@
-body{
-    background-color:#dff9fb;
+body {
+  background-color: #dff9fb;
 }
-#puzzle{
-    padding: 0;
-    width: 40%;
-    height: 40%;
-    margin: 4% auto;
-    box-sizing:border-box;
-    background-color: #535c68;
+#puzzle {
+  position: relative;
+  width: 325px;
+  height: 325px;
+  margin: 0 auto;
+  margin-top: 80px;
+  border: 8px solid #001f1f;
+  border-radius: 4px;
 }
-#control{
-    background-color:#6ab04c;
+#puzzle div {
+  position: absolute;
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
 }
-.record{
-    background-color: #6ab04c;
+.puzzle {
+  -webkit-transition: 0.15s left, 0.15s top;
+  transition: 0.15s left, 0.15s top;
 }
-.tile{
-    background-color:#0652DD ;
-    color:#ecf0f1 ;
+.tile {
+  cursor: pointer;
+  font: bold 36px/80px Arial;
+  text-align: center;
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
+  color: #fff;
 }
-.blanknaver{
-    color:#3498db;
+.empty {
+  background: transparent;
 }
-s
