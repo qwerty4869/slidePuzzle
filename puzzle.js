@@ -1,6 +1,9 @@
 var puzzle = document.getElementById(puzzle);
+var emptyTile = document.querySelector(".empty");
 var movecount = 0;
 var timerState = 0;
+var tilecount = puzzle.childElementCount;
+var size = Math.sqrt(tilecount);
 initPuzzle(3);
 
 puzzle.addEventListener("click", function(event) {
@@ -10,7 +13,7 @@ puzzle.addEventListener("click", function(event) {
     //   timer();
     // }  타이머
     if (event.target.classList.contains("moveable")) {
-      swapTile(event.target);
+      swapTile(event.target, emptyTile);
       movecount++;
     }
   }
@@ -48,21 +51,17 @@ function initPuzzle(puzzleSize) {
   shuffle();
   // save();
 }
-function swapTile(tile) {
-  // var emptyTile = getEmptyTile();
+function swapTile(tile1, tile2) {
   var temp = {
-    style: tile.style.cssText,
-    id: tile.id
+    style: tile1.style.cssText,
+    id: tile1.id
   };
-  tile.sytle.cssText = emptyTile.style.cssText;
-  tile.id = emptyTile.id;
-  emptyTile.style.cssText = temp.style;
-  emptyTile.id = tmp.id;
+  tile1.sytle.cssText = tile2.style.cssText;
+  tile1.id = tile2.id;
+  tile2.style.cssText = temp.style;
+  tile2.id = tmp.id;
 }
 function setMoveable() {
-  var tilecount = puzzle.childElementCount;
-  var size = Math.sqrt(tilecount);
-  var emptyTile = document.querySelector(".empty");
   var premoveables = document.querySelectorAll(".moveable");
   var row = parseInt(emptyTile.id[0]);
   var col = parseInt(emptyTile.id[1]);
@@ -85,8 +84,6 @@ function setMoveable() {
   }
 }
 function isSolved() {
-  var tilecount = puzzle.childElementCount;
-  var size = Math.sqrt(tilecount);
   if (getTile(size - 1, size - 1).className !== "empty") {
     return false;
   }
@@ -104,4 +101,51 @@ function isSolved() {
 function getTile(row, col) {
   return document.getElementById(row + col);
 }
-function shuffle() {}
+function shuffle() {
+  for (var i = size - 1; i >= 0; i--) {
+    for (var j = size - 1; j >= 0; j--) {
+      var random = Math.floor(Math.random() * (j * size + i));
+      var randomRow = Math.floor(random / size);
+      var randomCol = random % size;
+      swapTile(getTile(i, j), getTile(randomRow, randomCol));
+    }
+  }
+  if (!isSolvable()) {
+    shuffle();
+  }
+}
+
+function countInversions(row, col) {
+  var inversions = 0;
+  if (getTile(row, col).className !== "empty") {
+    for (var i = row; i < size; i++) {
+      for (var j = col + 1; j < size; j++) {
+        var tileValue = parseInt(getTile(row, col).innerHTML);
+        var compareValue = parseInt(getTile(i, j).innerHTML);
+        if (tileValue > compareValue) {
+          inversions++;
+        }
+      }
+    }
+  }
+  return inversions;
+}
+function sumInversions() {
+  var sumInversions = 0;
+  for (var i = 0; i < size; i++) {
+    for (var j = 0; j < size; j++) {
+      sumInversions = suminversions + countInversions(i, j);
+    }
+  }
+  return sumInversions;
+}
+function isSolvable() {
+  var emptyRow = parseInt(document.querySelector(".empty").id[0]);
+  if (size % 2) {
+    //크기가 홀수면 inversion합이 짝수면 풀 수 있다.
+    return sumInversions() % 2 == 0;
+  } else {
+    //크기가 짝수면  inversion합 + 빈칸의 높이가 짝수면 풀 수 있다.
+    return (sumInversions() + size - emptyRow) % 2 == 0;
+  }
+}
